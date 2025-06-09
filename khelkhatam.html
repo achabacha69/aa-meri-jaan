@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fullscreen Video with Button</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end; /* so button is at bottom center */
+      background: black;
+      font-family: Arial, sans-serif;
+      position: relative;
+    }
+    video {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .button-container {
+      width: 100%;
+      text-align: center;
+      padding: 20px 0;
+      position: fixed;
+      bottom: 20px;
+      left: 0;
+      z-index: 10;
+    }
+    button {
+      background-color: rgba(255, 79, 129, 0.8);
+      border: none;
+      color: white;
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+    button:hover {
+      background-color: rgba(224, 62, 111, 0.9);
+    }
+  </style>
+</head>
+<body>
+
+  <video autoplay muted loop playsinline>
+    <source src="your-video.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <div class="button-container">
+    <button onclick="window.location.href='index.html'">Thik hai chal daya aagayi</button>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aapke browser mein entry</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+      background-color: black;
+      position: relative;
+    }
+
+    .background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+      z-index: -1;
+    }
+
+    .content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      text-align: center;
+      padding: 30px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 15px;
+      animation: fadeIn 2s ease-in-out;
+      z-index: 10;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -60%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+
+    .countdown {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      padding: 15px 30px;
+      font-size: 1.2em;
+      color: white;
+      background-color: #ff4f81;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #e03e6f;
+      transform: scale(1.05);
+    }
+
+    .note {
+      margin-top: 20px;
+      font-size: 0.9em;
+      color: #ccc;
+      cursor: pointer;
+    }
+
+    /* Hearts container */
+    #hearts-container {
+      pointer-events: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      z-index: 5;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: 0;
+      font-size: 24px;
+      animation-name: floatUp;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      opacity: 0.8;
+      user-select: none;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    /* Confetti container */
+    #confetti-container {
+      pointer-events: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      z-index: 20;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: red;
+      opacity: 0.9;
+      animation-name: confettiFall;
+      animation-timing-function: linear;
+      animation-iteration-count: 1;
+    }
+
+    @keyframes confettiFall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🎥 Background Video -->
+  <video class="background-video" autoplay muted loop>
+    <source src="your-video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- 🔈 Background Music -->
+  <audio id="bg-music" loop>
+    <source src="homepageaudio.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <div class="overlay"></div>
+
+  <div class="content">
+    <h1>kya mai itna Tejaswi hoon ki Tejaswini ko date par le ja sakoon ? 🥰</h1>
+    <div class="countdown" id="countdown">
+      Countdown to our special day: ⏳ Loading...
+    </div>
+    <div class="buttons">
+      <button class="btn" id="yesBtn">Yes!</button>
+      <button class="btn" onclick="window.location.href='no.html'">Maza nahi aaya</button>
+      <button class="btn" onclick="window.location.href='timepass.html'">Yeh kya hai ab</button>
+    </div>
+    <p class="note" onclick="startMusic()">Tap here first for better experience hehe 🔊</p>
+  </div>
+
+  <div id="hearts-container"></div>
+  <div id="confetti-container"></div>
+
+  <script>
+    // Countdown Timer
+    const targetDate = new Date("2025-06-14T19:00:00");
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        document.getElementById("countdown").innerHTML = "The day is here! 🎉";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById("countdown").innerHTML =
+        `Acha nai laga toh mera khel khatam hai in : ⏳ ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    function startMusic() {
+      const music = document.getElementById("bg-music");
+      music.play().catch(e => {
+        alert("Couldn't play music automatically. Try tapping again!");
+        console.error("Playback error:", e);
+      });
+    }
+
+    // Floating hearts from bottom to top
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.textContent = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+      heart.style.fontSize = (15 + Math.random() * 30) + 'px';
+      document.getElementById('hearts-container').appendChild(heart);
+
+      // Remove heart after animation
+      setTimeout(() => {
+        heart.remove();
+      }, 10000);
+    }
+
+    setInterval(createHeart, 500);
+
+    // Confetti generator
+    function createConfetti(count) {
+      const colors = ['#ff0a54', '#ff477e', '#ff85a1', '#fbb1b1', '#f9bec7'];
+      const container = document.getElementById('confetti-container');
+
+      for (let i = 0; i < count; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.top = '-10px';
+        confetti.style.width = (5 + Math.random() * 8) + 'px';
+        confetti.style.height = confetti.style.width;
+        confetti.style.animationDuration = (3 + Math.random() * 2) + 's';
+        confetti.style.animationDelay = (Math.random() * 0.5) + 's';
+        container.appendChild(confetti);
+
+        // Remove confetti after animation
+        confetti.addEventListener('animationend', () => confetti.remove());
+      }
+    }
+
+    // Replace alert with WhatsApp message opening
+    const yesBtn = document.getElementById('yesBtn');
+    yesBtn.addEventListener('click', () => {
+      createConfetti(100);
+      // Change the number below to your target number (in international format, no + or 00)
+      const phoneNumber = "919137954546";
+      const message = "Chalo date pe 😝🤙🏻";
+      const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    });
+  </script>
+
+</body>
+</html>

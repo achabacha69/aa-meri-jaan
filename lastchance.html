@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Digital Fortune Cookie</title>
+<style>
+  body {
+    background: #ef9eca; /* warm yellow */
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    text-align: center;
+  }
+  h1 {
+    color: #ffffff;
+    margin-bottom: 30px;
+  }
+  #cookie {
+    width: 500px;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.3s ease;
+  }
+  #cookie:hover {
+    transform: scale(1.1);
+  }
+  #message {
+    margin-top: 30px;
+    font-size: 1.5rem;
+    color: #e00d54;
+    min-height: 60px;
+    max-width: fit-content;
+  }
+  .reset-btn, .ok-btn {
+    margin-top: 40px;
+    padding: 10px 25px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  .reset-btn {
+    background: #dc488d;
+    color: white;
+    display: none;
+    margin-right: 15px;
+  }
+  .reset-btn:hover {
+    background: #b91f90;
+  }
+  .ok-btn {
+    background: white;
+    color: #e03e6f;
+    display: none;
+  }
+  .ok-btn:hover {
+    background: #e03e6f;
+    color: white;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+  }
+</style>
+</head>
+<body>
+
+<h1>Tap the Fortune Cookie 🍪</h1>
+<img id="cookie" src="fc.png" alt="fortune cookie" />
+
+<div id="message"></div>
+<div class="button-container">
+  <button class="reset-btn" onclick="resetCookie()">Try Again</button>
+  <button class="ok-btn" onclick="window.location.href='index.html'">Ok yaar maan gayi</button>
+</div>
+
+<script>
+  const fortunes = [
+    "You will go on a date with Rishi 🎀",
+  ];
+
+  const cookie = document.getElementById('cookie');
+  const message = document.getElementById('message');
+  const resetBtn = document.querySelector('.reset-btn');
+  const okBtn = document.querySelector('.ok-btn');
+
+  cookie.addEventListener('click', () => {
+    const randomIndex = Math.floor(Math.random() * fortunes.length);
+    message.textContent = fortunes[randomIndex];
+    resetBtn.style.display = 'inline-block';
+    okBtn.style.display = 'inline-block';
+    cookie.style.pointerEvents = 'none'; // disable further clicks
+    cookie.style.opacity = 0.7;
+  });
+
+  function resetCookie() {
+    message.textContent = '';
+    resetBtn.style.display = 'none';
+    okBtn.style.display = 'none';
+    cookie.style.pointerEvents = 'auto';
+    cookie.style.opacity = 1;
+  }
+  
+</script>
+
+</body>
+</html>

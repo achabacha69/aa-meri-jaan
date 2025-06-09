@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Yehi reh gaya tha</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: #ffdee9;
+      background: linear-gradient(to right, #ef8bac, #b5fffc);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+      color: #333;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    input[type=range] {
+      width: 300px;
+      margin: 20px 0;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      background-color: #ff4f81;
+      color: white;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #e03e6f;
+    }
+
+    .result {
+      font-size: 1.5rem;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+<!-- 🔈 Background Music -->
+  <audio id="bg-music" loop>
+    <source src="rizzpage.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <h1>Aap mujhe kya rate karna chahoge 😝</h1>
+  <input type="range" id="riz-slider" min="1" max="10" value="5"/>
+  <div id="riz-score">Score: 5</div>
+  <div class="buttons">
+  <button class="btn" onclick="showResult(); startMusic()">Submit</button>
+  <button class="btn" onclick="window.location.href='timepass.html'">Back</button>
+  </div>
+  <div class="result" id="result-text"></div>
+
+  <script>
+    const slider = document.getElementById('riz-slider');
+    const scoreDisplay = document.getElementById('riz-score');
+    slider.oninput = () => {
+      scoreDisplay.textContent = `Score: ${slider.value}`;
+    };
+
+    function showResult() {
+      const result = document.getElementById('result-text');
+      result.innerHTML = `Acha toh mai ${slider.value}/10 hoon, lekin... <br><strong>Aap toh mere liye always 10/10 ho 🎀</strong>`;
+    }
+
+    function startMusic() {
+      const music = document.getElementById("bg-music");
+      music.play().then(() => {
+      }).catch(e => {
+        alert("Couldn't play music automatically. Try tapping again!");
+        console.error("Playback error:", e);
+      });
+    }
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Open Spotify Playlist</title>
+  <script>
+    window.onload = function() {
+      const spotifyPlaylistURL = "https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M";
+      window.open(spotifyPlaylistURL, "_blank");
+    }
+
+    function goBack() {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        alert("No previous page found.");
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+      background: #e7137d;
+      color: white;
+    }
+    button {
+      margin-top: 30px;
+      padding: 12px 24px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background-color: #ffffff;
+      color: #000000;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #e7137d;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <h1>Yeh toh tujhe acha lagna chahiye 🥰</h1>
+  <p>If nothing happens, <a href="https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: underline;">click here</a>.</p>
+  <button onclick="goBack()">Go Back</button>
+</body>
+</html>
