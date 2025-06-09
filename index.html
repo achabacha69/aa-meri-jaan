@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Aapke browser mein entry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+  <title>Hello ji</title>
   <style>
     * {
       margin: 0;
@@ -13,20 +16,11 @@
 
     body, html {
       height: 100%;
-      font-family: 'Arial', sans-serif;
+      font-family: "Arial", sans-serif;
       overflow: hidden;
-      background-color: black;
+      background: url('homebg.jpg') no-repeat center center fixed;
+      background-size: cover;
       position: relative;
-    }
-
-    .background-video {
-      position: fixed;
-      top: 0;
-      left: 0;
-      min-width: 100%;
-      min-height: 100%;
-      object-fit: cover;
-      z-index: -2;
     }
 
     .overlay {
@@ -59,12 +53,13 @@
     }
 
     h1 {
-      font-size: 3em;
+        font-family: "Oswald", sans-serif;
+      font-size: 2em;
       margin-bottom: 20px;
     }
 
     .countdown {
-      font-size: 1.5em;
+      font-size: 1.2em;
       margin-bottom: 20px;
     }
 
@@ -98,7 +93,6 @@
       cursor: pointer;
     }
 
-    /* Hearts container */
     #hearts-container {
       pointer-events: none;
       position: fixed;
@@ -132,7 +126,6 @@
       }
     }
 
-    /* Confetti container */
     #confetti-container {
       pointer-events: none;
       position: fixed;
@@ -169,12 +162,6 @@
 </head>
 <body>
 
-  <!-- 🎥 Background Video -->
-  <video class="background-video" autoplay muted loop>
-    <source src="your-video.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-
   <!-- 🔈 Background Music -->
   <audio id="bg-music" loop>
     <source src="homepageaudio.mp3" type="audio/mp3">
@@ -184,7 +171,7 @@
   <div class="overlay"></div>
 
   <div class="content">
-    <h1>kya mai itna Tejaswi hoon ki Tejaswini ko date par le ja sakoon ? 🥰</h1>
+    <h1>Am I Tejaswi enough to take Tejaswini on a <b>Date?</b> 🥰</h1>
     <div class="countdown" id="countdown">
       Countdown to our special day: ⏳ Loading...
     </div>
@@ -201,7 +188,7 @@
 
   <script>
     // Countdown Timer
-    const targetDate = new Date("2025-06-14T19:00:00");
+    const targetDate = new Date("2025-06-10T00:30:00");
 
     function updateCountdown() {
       const now = new Date();
@@ -242,10 +229,7 @@
       heart.style.fontSize = (15 + Math.random() * 30) + 'px';
       document.getElementById('hearts-container').appendChild(heart);
 
-      // Remove heart after animation
-      setTimeout(() => {
-        heart.remove();
-      }, 10000);
+      setTimeout(() => heart.remove(), 10000);
     }
 
     setInterval(createHeart, 500);
@@ -267,17 +251,15 @@
         confetti.style.animationDelay = (Math.random() * 0.5) + 's';
         container.appendChild(confetti);
 
-        // Remove confetti after animation
         confetti.addEventListener('animationend', () => confetti.remove());
       }
     }
 
-    // Replace alert with WhatsApp message opening
+    // WhatsApp message trigger on "Yes"
     const yesBtn = document.getElementById('yesBtn');
     yesBtn.addEventListener('click', () => {
       createConfetti(100);
-      // Change the number below to your target number (in international format, no + or 00)
-      const phoneNumber = "919137954546";
+      const phoneNumber = "919137954546"; // your number here (no + or 00)
       const message = "Chalo date pe 😝🤙🏻";
       const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
       window.open(url, '_blank');
